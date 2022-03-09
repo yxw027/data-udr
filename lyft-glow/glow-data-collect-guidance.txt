@@ -1,0 +1,40 @@
+How Glow will be used in the field
+
+Post-initial install, drivers may:
+
+1.Leave their Glow mounted all of the time and leave it plugged in all of the time
+a) User story A:
+	Driver turns on car and Glow is mounted and plugged in
+	Driver opens Lyft Driver App (bluetooth connection active)
+	Lyft Driver App is backgrounded (bluetooth connection inactive)
+	Driver starts driving
+	Driver goes online in Lyft Driver App (bluetooth connection active)
+b) User story B:
+	Driver turns on car and Glow is mounted and plugged in
+	Driver does not open Lyft Driver App
+	Driver starts driving
+c) User story C:
+	Driver turns on car and Glow is mounted and plugged in
+	Driver opens Lyft Driver App
+	Driver does not start driving
+d) User story D:
+	Driver turns on car and Glow is mounted and plugged in
+	Driver does not open Lyft Driver App
+	Driver does not start driving
+2.Leave their Glow mounted all of the time and plug/unplug it throughout driving
+a) User story A:
+	Driver turns on car and Glow is mounted and not plugged in
+	Driver starts driving, using the Lyft Driver app
+	Driver plugs in Glow
+	Driver continues Driving
+b) User story B:
+	Driver turns on car and Glow is not mounted and not plugged in
+	Driver starts driving, using the Lyft Driver app
+	Driver plugs in Glow
+	Driver mounts Glow
+	Driver continues Driving
+c) User story C
+	Driver turns on car and Glow is plugged in and not mounted
+	Driver starts driving, using Lyft Driver app
+	Driver mounts Glow
+	Driver continues Driving
