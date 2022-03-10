@@ -6,4 +6,7 @@ new_fw/
 short_dr/
 simple_work_drive/
  
-These two directories have data sets that PP well, and are also X-Y-Z.  The data in the other directories is not working yet.  
+These two directories have data sets that PP well, and are also X-Y-Z.  The data in the other directories is not working yet.
+
+03/09/2022
+added frank's test data based on pre-release, with the glow cases, axis is -ZYX, lyft-glow\0309\
