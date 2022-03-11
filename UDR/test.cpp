@@ -137,6 +137,34 @@ extern int outnmea_gga(unsigned char* buff, float time, int type, double* blh, i
 	return (int)(p - (char*)buff);
 }
 
+#ifndef MAX_BUF_LEN
+#define MAX_BUF_LEN 1024
+#endif
+
+typedef struct
+{
+	uint8_t dat[MAX_BUF_LEN];
+	uint32_t nbyte;
+}nmea_buff_t;
+
+static int add_buff(nmea_buff_t* buff, uint8_t data)
+{
+	int ret = 0;
+	if (buff->nbyte == 0)
+	{
+		if (data == '$')
+		{
+			buff->dat[buff->nbyte++] = data;
+		}
+	}
+	else
+	{
+		ret = (data == '\n' && buff->dat[buff->nbyte - 1] == '\r');
+		buff->dat[buff->nbyte++] = data;
+	}
+	return ret;
+}
+
 int process_ini_LC79D_v1(const char* fname)
 {
 	FILE* fGGA = NULL; /* logged LC79 nmea data */
@@ -160,10 +188,19 @@ int process_ini_LC79D_v1(const char* fname)
 	double heading = 0.0, speed = 0.0, lat = 0.0, lon = 0.0, ht = 0.0, pdop = 0.0, time_GPS = 0.0, satnum = 0.0;
 
 	double StartTime = 0;
+	uint8_t data = 0;
+	nmea_buff_t buff = { 0 };
 	while (fGGA != NULL && !feof(fGGA))
 	{
-		fgets(buffer, sizeof(buffer), fGGA);
-	
+		if ((data = fgetc(fGGA)) == EOF) break;
+		if (!add_buff(&buff, data)) continue;
+
+		memset(buffer, 0, sizeof(buffer));
+		memcpy(buffer, buff.dat, sizeof(uint8_t) * buff.nbyte);
+
+		//printf("%s", buffer);
+		buff.nbyte = 0;
+
 		if (strlen(buffer) < 1) continue;
 		if (buffer[0] != '$') continue;
 		int num = parse_fields(buffer, val);
